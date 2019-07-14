@@ -26,8 +26,9 @@ const server = http.createServer((req, res) => {
           description: 'An example of a CDS Service that returns a static set of cards',
           id: 'static-patient-greeter',
           prefetch: {
-            patientToGreet: 'Patient/{{Patient.id}}'
-          }
+            patientToGreet: 'Patient/{{context.patientId}}'
+          },
+          enabled: true
         }
       ]
     }))
