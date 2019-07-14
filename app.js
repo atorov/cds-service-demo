@@ -11,7 +11,7 @@ const server = http.createServer((req, res) => {
     return res.end(JSON.stringify({ status: 'OK' }))
   }
 
-  if (url === '/cds-services' && method === 'GET') {
+  if (url === '/cds-services' && ['OPTIONS', 'GET'].includes(method)) {
     res.setHeader('Content-Type', 'application/json')
     // res.setHeader('Access-Control-Allow-Credentials', 'true')
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
