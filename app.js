@@ -4,14 +4,14 @@ const server = http.createServer((req, res) => {
   const url = req.url
   const method = req.method
 
-  if (url === '/health' && method === 'GET') {
+  if (url === '/health') {
     res.setHeader('Content-Type', 'application/json')
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.writeHead(200)
     return res.end(JSON.stringify({ status: 'OK' }))
   }
 
-  if (url === '/cds-services' && method === 'GET') {
+  if (url === '/cds-services') {
     res.setHeader('Content-Type', 'application/json')
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.writeHead(200)
@@ -46,10 +46,10 @@ const server = http.createServer((req, res) => {
   }
 
   res.setHeader('Access-Control-Allow-Origin', '*')
-  // res.writeHead(404)
-  // return res.end(JSON.stringify({ status: 'Not found' }))
-  res.writeHead(200)
-  return res.end()
+  res.writeHead(404)
+  return res.end(JSON.stringify({ status: 'Not found' }))
+  // res.writeHead(200)
+  // return res.end()
 })
 
 const port = process.env.PORT || 3000
