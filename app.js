@@ -13,6 +13,9 @@ const server = http.createServer((req, res) => {
 
   if (url === '/cds-services') {
     res.setHeader('Content-Type', 'application/json')
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.writeHead(200)
     return res.end(JSON.stringify({
