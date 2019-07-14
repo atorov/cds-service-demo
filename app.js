@@ -13,7 +13,7 @@ const server = http.createServer((req, res) => {
 
   if (url === '/cds-services' && ['OPTIONS', 'GET'].includes(method)) {
     res.setHeader('Content-Type', 'application/json')
-    // res.setHeader('Access-Control-Allow-Credentials', 'true')
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET')
     res.setHeader('Access-Control-Allow-Origin', '*')
@@ -35,7 +35,8 @@ const server = http.createServer((req, res) => {
 
   if (url === '/cds-services/static-patient-greeter' && ['OPTIONS', 'POST'].includes(method)) {
     res.setHeader('Content-Type', 'application/json')
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.writeHead(200)
