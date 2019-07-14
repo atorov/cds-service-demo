@@ -50,4 +50,6 @@ const server = http.createServer((req, res) => {
   return res.end(JSON.stringify({ status: 'Not found' }))
 })
 
-server.listen(3000)
+console.log('::: process.env.PORT:', process.env.PORT)
+
+server.listen(process.env.PORT)

@@ -4,8 +4,14 @@
   "description": "CDS Service Demo",
   "main": "app.js",
   "scripts": {
-    "start": "node ./app.js"
+    "start": "PORT=3000 node ./app.js"
   },
+  "keywords": [
+    "cds",
+    "service",
+    "hook",
+    "demo"
+  ],
   "author": "",
   "license": "MIT",
   "repository": "https://github.com/atorov/cds-service-demo.git",
