@@ -46,8 +46,10 @@ const server = http.createServer((req, res) => {
   }
 
   res.setHeader('Access-Control-Allow-Origin', '*')
-  res.writeHead(404)
-  return res.end(JSON.stringify({ status: 'Not found' }))
+  // res.writeHead(404)
+  // return res.end(JSON.stringify({ status: 'Not found' }))
+  res.writeHead(200)
+  return res.end()
 })
 
 const port = process.env.PORT || 3000
