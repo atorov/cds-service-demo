@@ -4,18 +4,18 @@ const server = http.createServer((req, res) => {
   const url = req.url
   const method = req.method
 
-  if (url === '/health') {
+  if (url === '/health' && method === 'GET') {
     res.setHeader('Content-Type', 'application/json')
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.writeHead(200)
     return res.end(JSON.stringify({ status: 'OK' }))
   }
 
-  if (url === '/cds-services') {
+  if (url === '/cds-services' && method === 'GET') {
     res.setHeader('Content-Type', 'application/json')
-    res.setHeader('Access-Control-Allow-Credentials', 'true')
+    // res.setHeader('Access-Control-Allow-Credentials', 'true')
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS')
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.writeHead(200)
     return res.end(JSON.stringify({
@@ -35,6 +35,9 @@ const server = http.createServer((req, res) => {
 
   if (url === '/cds-services/static-patient-greeter' && method === 'POST') {
     res.setHeader('Content-Type', 'application/json')
+    // res.setHeader('Access-Control-Allow-Credentials', 'true')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.writeHead(200)
     return res.end(JSON.stringify({
@@ -51,8 +54,6 @@ const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.writeHead(404)
   return res.end(JSON.stringify({ status: 'Not found' }))
-  // res.writeHead(200)
-  // return res.end()
 })
 
 const port = process.env.PORT || 3000
