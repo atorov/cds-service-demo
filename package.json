@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "CDS Service Demo",
   "main": "app.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node ./app.js"
+  },
   "author": "",
   "license": "MIT",
   "repository": "https://github.com/atorov/cds-service-demo.git",
