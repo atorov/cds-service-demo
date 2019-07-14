@@ -1,7 +1,7 @@
 {
   "name": "demo-cds-service",
   "version": "0.0.1",
-  "description": "",
+  "description": "CDS Service Demo",
   "main": "app.js",
   "scripts": {},
   "author": "",
