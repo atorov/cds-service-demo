@@ -27,8 +27,7 @@ const server = http.createServer((req, res) => {
           id: 'static-patient-greeter',
           prefetch: {
             patientToGreet: 'Patient/{{context.patientId}}'
-          },
-          enabled: true
+          }
         }
       ]
     }))
@@ -46,7 +45,11 @@ const server = http.createServer((req, res) => {
         {
           summary: 'Info Card',
           indicator: 'info',
-          detail: 'This is an example info card'
+          detail: 'This is an example info card',
+          source: {
+            label: 'CDS Service Demo',
+            url: 'https://example.com/source'
+          }
         }
       ]
     }))
