@@ -104,7 +104,7 @@ const server = http.createServer((req, res) => {
       const birthDate = req.post && req.post.prefetch && req.post.prefetch.patient && req.post.prefetch.patient.birthDate
       const cards = []
       if (hook === 'patient-view') {
-        const age = moment(birthDate).isValid() ? moment().diff(birthDate, 'years') : null
+        const age = birthDate && moment(birthDate).isValid() ? moment().diff(birthDate, 'years') : null
         const detail = age !== null ? `# Details\n\nThe patient age is: ${age}` : `# Details\n\nInvalid date of birth`
         let indicator = 'info'
         if (age < 10) {
