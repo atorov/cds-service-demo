@@ -108,7 +108,7 @@ const server = http.createServer((req, res) => {
 
         let detail = `### Details\n\nInvalid date of birth \n\n`
         if (age !== null && age >= 0) {
-          detail += `Patient age: ${age} ${age > 1 ? 'years' : 'year'}\n\n`
+          detail = `Patient age: ${age} ${age > 1 ? 'years' : 'year'}\n\n`
         }
 
         let indicator = 'info'
