@@ -25,7 +25,7 @@ const server = http.createServer((req, res) => {
         {
           hook: 'patient-view',
           title: 'Info card on patient view',
-          description: '# Description\n\nAn example of a CDS Service that returns an info card',
+          description: 'An example of a CDS Service that returns an info card',
           id: 'info-card'
         },
         {
@@ -41,7 +41,8 @@ const server = http.createServer((req, res) => {
     }))
   }
 
-  if (url === '/cds-services/static-patient-greeter' && ['OPTIONS', 'POST'].includes(method)) {
+  // OPTIONS, GET /cds-services/info-card --------------------------------------
+  if (url === '/cds-services/info-card' && ['OPTIONS', 'POST'].includes(method)) {
     res.setHeader('Content-Type', 'application/json')
     res.setHeader('Access-Control-Allow-Credentials', 'true')
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
@@ -51,9 +52,9 @@ const server = http.createServer((req, res) => {
     return res.end(JSON.stringify({
       cards: [
         {
-          summary: 'Info Card',
+          summary: 'Info card on patient view',
           indicator: 'info',
-          detail: 'This is an example info card',
+          detail: '# Details\n\nThis is a simple info card',
           source: {
             label: 'CDS Service Demo',
             url: 'https://example.com/source'
