@@ -80,7 +80,7 @@ const server = http.createServer((req, res) => {
         {
           summary: 'Info card on patient view',
           indicator: 'info',
-          detail: '# Details\n\nThis is a simple info card',
+          detail: '### Details\n\nThis is a simple info card',
           source: {
             label: 'CDS Service Demo',
             url: 'https://example.com/source'
@@ -106,8 +106,7 @@ const server = http.createServer((req, res) => {
       if (hook === 'patient-view') {
         const age = birthDate && moment(birthDate).isValid() ? moment().diff(birthDate, 'years') : null
 
-        let detail = `# Details\n\nInvalid date of birth \n\n`
-        detail += `![Image of something](https://picsum.photos/id/450/640/240)\n\n`
+        let detail = `### Details\n\nInvalid date of birth \n\n`
         if (age !== null || age < 0) {
           detail += `Patient age: ${age} ${age > 1 ? 'years' : 'year'}\n\n`
         }
@@ -119,8 +118,20 @@ const server = http.createServer((req, res) => {
           indicator = 'critical'
         }
 
+        switch (indicator) {
+          case 'info':
+            detail += `![Image of something](https://picsum.photos/id/450/640/240)\n\n`
+            break
+          case 'warning':
+            detail += `![Image of something](https://picsum.photos/id/476/640/240)\n\n`
+            break
+          case 'critical':
+            detail += `![Image of something](https://picsum.photos/id/180/640/240)\n\n`
+            break
+        }
+
         cards.push({
-          summary: 'Card on patient view with patient age',
+          summary: 'Patient age check',
           indicator,
           detail,
           source: {
