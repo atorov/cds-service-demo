@@ -12,6 +12,7 @@ const server = http.createServer((req, res) => {
     return res.end(JSON.stringify({ status: 'OK' }))
   }
 
+  // OPTIONS, GET /cds-services ------------------------------------------------
   if (url === '/cds-services' && ['OPTIONS', 'GET'].includes(method)) {
     res.setHeader('Content-Type', 'application/json')
     res.setHeader('Access-Control-Allow-Credentials', 'true')
@@ -23,11 +24,17 @@ const server = http.createServer((req, res) => {
       services: [
         {
           hook: 'patient-view',
-          title: 'Static CDS Service Example',
-          description: 'An example of a CDS Service that returns a static set of cards',
-          id: 'static-patient-greeter',
+          title: 'Info card on patient view',
+          description: '# Description\n\nAn example of a CDS Service that returns an info card',
+          id: 'info-card'
+        },
+        {
+          hook: 'patient-view',
+          title: 'Card on patient view with patient age',
+          description: '#Description\n\nAn example of a CDS Service that returns the card containing the patient age. The card could be of type `info`, `warning` or `critical` and it depends on the patient age.',
+          id: 'card-age',
           prefetch: {
-            patientToGreet: 'Patient/{{context.patientId}}'
+            patient: 'Patient/{{context.patientId}}'
           }
         }
       ]
