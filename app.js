@@ -107,7 +107,7 @@ const server = http.createServer((req, res) => {
         const age = birthDate && moment(birthDate).isValid() ? moment().diff(birthDate, 'years') : null
 
         let detail = `### Details\n\nInvalid date of birth \n\n`
-        if (age !== null || age < 0) {
+        if (age !== null && age >= 0) {
           detail += `Patient age: ${age} ${age > 1 ? 'years' : 'year'}\n\n`
         }
 
