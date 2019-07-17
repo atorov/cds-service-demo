@@ -56,7 +56,7 @@ const server = http.createServer((req, res) => {
         {
           hook: 'patient-view',
           title: 'Card on patient view with patient age',
-          description: 'An example of a CDS Service that returns the card containing the patient age. The card could be of type `info`, `warning` or `critical` and it depends on the patient age.',
+          description: 'An example of a CDS Service that returns a card containing the patient age. The card could be of type `info`, `warning` or `critical` and it depends on the patient age.',
           id: 'card-age',
           prefetch: {
             patient: 'Patient/{{context.patientId}}'
