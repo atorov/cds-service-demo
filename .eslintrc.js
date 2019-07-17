@@ -13,8 +13,10 @@ module.exports = {
   },
   parserOptions: {
     ecmaVersion: 2018
+  },
+  rules: {
+    eqeqeq: 0,
+    'space-before-function-paren': 0
+    // indent: [2, 4]
   }
-  // rules: {
-  // indent: [2, 4]
-  // }
 }
