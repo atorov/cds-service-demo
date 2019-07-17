@@ -4,7 +4,8 @@ const server = http.createServer((req, res) => {
   const url = req.url
   const method = req.method
 
-  if (url === '/health' && method === 'GET') {
+  // GET / ---------------------------------------------------------------------
+  if (url === '/' && method === 'GET') {
     res.setHeader('Content-Type', 'application/json')
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.writeHead(200)
