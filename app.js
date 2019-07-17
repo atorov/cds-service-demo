@@ -105,11 +105,17 @@ const server = http.createServer((req, res) => {
       const cards = []
       if (hook === 'patient-view') {
         const age = birthDate && moment(birthDate).isValid() ? moment().diff(birthDate, 'years') : null
-        const detail = age !== null ? `# Details\n\nThe patient age is: ${age}` : `# Details\n\nInvalid date of birth`
+
+        let detail = `# Details\n\nInvalid date of birth \n\n`
+        detail += `![Image of something](https://picsum.photos/id/450/640/480)\n\n`
+        if (age !== null || age < 0) {
+          detail += `Patient age: ${age} ${age > 1 ? 'years' : 'year'}\n\n`
+        }
+
         let indicator = 'info'
-        if (age < 10) {
+        if (age < 10 || age > 80) {
           indicator = 'warning'
-        } else if (age > 80) {
+        } else if (age === null || age < 0) {
           indicator = 'critical'
         }
 
