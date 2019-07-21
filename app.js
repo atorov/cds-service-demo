@@ -54,7 +54,7 @@ const server = http.createServer((req, res) => {
           description: 'An example of a CDS Service that returns an info card'
         },
         {
-          id: 'card-age-prefetch',
+          id: 'card-age-pf',
           hook: 'patient-view',
           title: 'Card on patient view with patient age',
           description: 'An example of a CDS Service that returns a card containing the patient age. The card could be of type `info`, `warning` or `critical` and it depends on the patient age. The information about the patient is provided by the CDS Client in `prefetch` property.',
@@ -63,7 +63,7 @@ const server = http.createServer((req, res) => {
           }
         },
         {
-          id: 'card-age-fhir-req',
+          id: 'card-age-freq',
           hook: 'patient-view',
           title: 'Card on patient view with patient age',
           description: 'An example of a CDS Service that returns a card containing the patient age. The card could be of type `info`, `warning` or `critical` and it depends on the patient age. The information about the patient is retrieved by the service itself.'
@@ -96,8 +96,8 @@ const server = http.createServer((req, res) => {
     }))
   }
 
-  // OPTIONS, GET /cds-services/card-age-prefetch ------------------------------
-  if (url == '/cds-services/card-age-prefetch' && ['OPTIONS', 'POST'].includes(method.toUpperCase())) {
+  // OPTIONS, GET /cds-services/card-age-pf ------------------------------
+  if (url == '/cds-services/card-age-pf' && ['OPTIONS', 'POST'].includes(method.toUpperCase())) {
     return processPost(req, () => {
       res.setHeader('Content-Type', 'application/json')
       res.setHeader('Access-Control-Allow-Credentials', 'true')
@@ -151,8 +151,8 @@ const server = http.createServer((req, res) => {
     })
   }
 
-  // OPTIONS, GET /cds-services/card-age-fhir-request --------------------------
-  if (url == '/cds-services/card-age-fhir-request' && ['OPTIONS', 'POST'].includes(method.toUpperCase())) {
+  // OPTIONS, GET /cds-services/card-age-freq --------------------------
+  if (url == '/cds-services/card-age-freq' && ['OPTIONS', 'POST'].includes(method.toUpperCase())) {
     return processPost(req, () => {
       res.setHeader('Content-Type', 'application/json')
       res.setHeader('Access-Control-Allow-Credentials', 'true')
@@ -165,6 +165,8 @@ const server = http.createServer((req, res) => {
       // const birthDate = req.post && req.post.prefetch && req.post.prefetch.patient && req.post.prefetch.patient.birthDate
       const cards = []
       if (hook === 'patient-view') {
+        console.log('TODO: /cds-services/card-age-freq')
+
         // const age = birthDate && moment(birthDate).isValid() ? moment().diff(birthDate, 'years') : null
 
         // let detail = `### Details\n\nInvalid date of birth \n\n`
