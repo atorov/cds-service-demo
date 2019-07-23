@@ -134,7 +134,7 @@ const server = http.createServer((req, res) => {
             detail += `![Image of something](https://picsum.photos/id/476/640/240)\n\n`
             break
           case 'critical':
-            detail += `![Image of something](https://picsum.photos/id/180/640/240)\n\n`
+            detail += `![Image of something](https://picsum.photos/id/280/640/240)\n\n`
             break
         }
 
