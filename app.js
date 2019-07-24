@@ -66,6 +66,12 @@ const server = http.createServer((req, res) => {
           }
         },
         {
+          id: 'critical-card',
+          hook: 'patient-view',
+          title: 'Critical card on patient view',
+          description: 'An example of a CDS Service that returns a critical card'
+        },
+        {
           id: 'info-card',
           hook: 'patient-view',
           title: 'Info card on patient view',
@@ -76,6 +82,12 @@ const server = http.createServer((req, res) => {
           hook: 'patient-view',
           title: 'Suggestion card on patient view',
           description: 'An example of a CDS Service that returns a suggestion card'
+        },
+        {
+          id: 'warning-card',
+          hook: 'patient-view',
+          title: 'Warning card on patient view',
+          description: 'An example of a CDS Service that returns a warning card'
         }
       ]
     }))
@@ -193,6 +205,30 @@ const server = http.createServer((req, res) => {
     })
   }
 
+  // OPTIONS, GET /cds-services/critical-card --------------------------------------
+  if (url === '/cds-services/critical-card' && ['OPTIONS', 'POST'].includes(method)) {
+    res.setHeader('Content-Type', 'application/json')
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.writeHead(200)
+
+    return res.end(JSON.stringify({
+      cards: [
+        {
+          summary: 'Critical card on patient view',
+          indicator: 'critical',
+          detail: '### Details\n\nThis is a simple critical card',
+          source: {
+            label: 'CDS Service Demo',
+            url: 'https://example.com/source'
+          }
+        }
+      ]
+    }))
+  }
+
   // OPTIONS, GET /cds-services/info-card --------------------------------------
   if (url === '/cds-services/info-card' && ['OPTIONS', 'POST'].includes(method)) {
     res.setHeader('Content-Type', 'application/json')
@@ -255,6 +291,30 @@ const server = http.createServer((req, res) => {
               ]
             }
           ]
+        }
+      ]
+    }))
+  }
+
+  // OPTIONS, GET /cds-services/warning-card --------------------------------------
+  if (url === '/cds-services/warning-card' && ['OPTIONS', 'POST'].includes(method)) {
+    res.setHeader('Content-Type', 'application/json')
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.writeHead(200)
+
+    return res.end(JSON.stringify({
+      cards: [
+        {
+          summary: 'Warning card on patient view',
+          indicator: 'warning',
+          detail: '### Details\n\nThis is a simple warning card',
+          source: {
+            label: 'CDS Service Demo',
+            url: 'https://example.com/source'
+          }
         }
       ]
     }))
