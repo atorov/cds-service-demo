@@ -196,7 +196,8 @@ const server = http.createServer((req, res) => {
           detail,
           source: {
             label: 'CDS Service Demo',
-            url: 'https://example.com/source'
+            url: 'https://example.com/source',
+            icon: 'https://picsum.photos/id/400/100/100'
           }
         })
       }
