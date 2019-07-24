@@ -1,5 +1,6 @@
 const http = require('http')
 const moment = require('moment')
+const uuidv4 = require('uuid/v4')
 
 function processPost(req, cb) {
   let body = ''
@@ -48,10 +49,11 @@ const server = http.createServer((req, res) => {
     return res.end(JSON.stringify({
       services: [
         {
-          id: 'info-card',
+          id: 'card-age-fhir-request',
           hook: 'patient-view',
-          title: 'Info card on patient view',
-          description: 'An example of a CDS Service that returns an info card'
+          title: 'Card on patient view with patient age',
+          // description: 'An example of a CDS Service that returns a card containing the patient age. The card could be of type `info`, `warning` or `critical` and it depends on the patient age. The information about the patient is retrieved by the service itself.'
+          description: 'An example of a CDS Service that returns a card containing the patient age'
         },
         {
           id: 'card-age-prefetch',
@@ -64,93 +66,19 @@ const server = http.createServer((req, res) => {
           }
         },
         {
-          id: 'card-age-fhir-request',
+          id: 'info-card',
           hook: 'patient-view',
-          title: 'Card on patient view with patient age',
-          // description: 'An example of a CDS Service that returns a card containing the patient age. The card could be of type `info`, `warning` or `critical` and it depends on the patient age. The information about the patient is retrieved by the service itself.'
-          description: 'An example of a CDS Service that returns a card containing the patient age'
-        }
-      ]
-    }))
-  }
-
-  // OPTIONS, GET /cds-services/info-card --------------------------------------
-  if (url === '/cds-services/info-card' && ['OPTIONS', 'POST'].includes(method)) {
-    res.setHeader('Content-Type', 'application/json')
-    res.setHeader('Access-Control-Allow-Credentials', 'true')
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    res.writeHead(200)
-
-    return res.end(JSON.stringify({
-      cards: [
+          title: 'Info card on patient view',
+          description: 'An example of a CDS Service that returns an info card'
+        },
         {
-          summary: 'Info card on patient view',
-          indicator: 'info',
-          detail: '### Details\n\nThis is a simple info card',
-          source: {
-            label: 'CDS Service Demo',
-            url: 'https://example.com/source'
-          }
+          id: 'suggestion-card',
+          hook: 'patient-view',
+          title: 'Info card on patient view',
+          description: 'An example of a CDS Service that returns a suggestion card'
         }
       ]
     }))
-  }
-
-  // OPTIONS, GET /cds-services/card-age-prefetch ------------------------------
-  if (url == '/cds-services/card-age-prefetch' && ['OPTIONS', 'POST'].includes(method.toUpperCase())) {
-    return processPost(req, () => {
-      res.setHeader('Content-Type', 'application/json')
-      res.setHeader('Access-Control-Allow-Credentials', 'true')
-      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-      res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
-      res.setHeader('Access-Control-Allow-Origin', '*')
-      res.writeHead(200)
-
-      const hook = req.post && req.post.hook
-      const birthDate = req.post && req.post.prefetch && req.post.prefetch.patient && req.post.prefetch.patient.birthDate
-      const cards = []
-      if (hook === 'patient-view') {
-        const age = birthDate && moment(birthDate).isValid() ? moment().diff(birthDate, 'years') : null
-
-        let detail = `### Details\n\nInvalid date of birth \n\n`
-        if (age !== null && age >= 0) {
-          detail = `Patient age: ${age} ${age > 1 ? 'years' : 'year'}\n\n`
-        }
-
-        let indicator = 'info'
-        if (age !== null && (age < 10 || age > 80)) {
-          indicator = 'warning'
-        } else if (age === null || age < 0) {
-          indicator = 'critical'
-        }
-
-        switch (indicator) {
-          case 'info':
-            detail += `![Image of something](https://picsum.photos/id/450/640/240)\n\n`
-            break
-          case 'warning':
-            detail += `![Image of something](https://picsum.photos/id/476/640/240)\n\n`
-            break
-          case 'critical':
-            detail += `![Image of something](https://picsum.photos/id/280/640/240)\n\n`
-            break
-        }
-
-        cards.push({
-          summary: 'Patient age check',
-          indicator,
-          detail,
-          source: {
-            label: 'CDS Service Demo',
-            url: 'https://example.com/source'
-          }
-        })
-      }
-
-      return res.end(JSON.stringify({ cards }))
-    })
   }
 
   // OPTIONS, GET /cds-services/card-age-fhir-request --------------------------
@@ -208,6 +136,128 @@ const server = http.createServer((req, res) => {
 
       return res.end(JSON.stringify({ cards }))
     })
+  }
+
+  // OPTIONS, GET /cds-services/card-age-prefetch ------------------------------
+  if (url == '/cds-services/card-age-prefetch' && ['OPTIONS', 'POST'].includes(method.toUpperCase())) {
+    return processPost(req, () => {
+      res.setHeader('Content-Type', 'application/json')
+      res.setHeader('Access-Control-Allow-Credentials', 'true')
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+      res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
+      res.setHeader('Access-Control-Allow-Origin', '*')
+      res.writeHead(200)
+
+      const hook = req.post && req.post.hook
+      const birthDate = req.post && req.post.prefetch && req.post.prefetch.patient && req.post.prefetch.patient.birthDate
+      const cards = []
+      if (hook === 'patient-view') {
+        const age = birthDate && moment(birthDate).isValid() ? moment().diff(birthDate, 'years') : null
+
+        let detail = `### Details\n\nInvalid date of birth \n\n`
+        if (age !== null && age >= 0) {
+          detail = `Patient age: ${age} ${age > 1 ? 'years' : 'year'}\n\n`
+        }
+
+        let indicator = 'info'
+        if (age !== null && (age < 10 || age > 80)) {
+          indicator = 'warning'
+        } else if (age === null || age < 0) {
+          indicator = 'critical'
+        }
+
+        switch (indicator) {
+          case 'info':
+            detail += `![Image of something](https://picsum.photos/id/450/640/240)\n\n`
+            break
+          case 'warning':
+            detail += `![Image of something](https://picsum.photos/id/476/640/240)\n\n`
+            break
+          case 'critical':
+            detail += `![Image of something](https://picsum.photos/id/280/640/240)\n\n`
+            break
+        }
+
+        cards.push({
+          summary: 'Patient age check',
+          indicator,
+          detail,
+          source: {
+            label: 'CDS Service Demo',
+            url: 'https://example.com/source'
+          }
+        })
+      }
+
+      return res.end(JSON.stringify({ cards }))
+    })
+  }
+
+  // OPTIONS, GET /cds-services/info-card --------------------------------------
+  if (url === '/cds-services/info-card' && ['OPTIONS', 'POST'].includes(method)) {
+    res.setHeader('Content-Type', 'application/json')
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.writeHead(200)
+
+    return res.end(JSON.stringify({
+      cards: [
+        {
+          summary: 'Info card on patient view',
+          indicator: 'info',
+          detail: '### Details\n\nThis is a simple info card',
+          source: {
+            label: 'CDS Service Demo',
+            url: 'https://example.com/source'
+          }
+        }
+      ]
+    }))
+  }
+
+  // OPTIONS, GET /cds-services/suggestion-card --------------------------------------
+  if (url === '/cds-services/suggestion-card' && ['OPTIONS', 'POST'].includes(method)) {
+    res.setHeader('Content-Type', 'application/json')
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.writeHead(200)
+
+    return res.end(JSON.stringify({
+      cards: [
+        {
+          summary: 'Suggestion card on patient view',
+          indicator: 'info',
+          detail: '### Details\n\nThis is a simple suggestion card',
+          source: {
+            label: 'CDS Service Demo',
+            url: 'https://example.com/source'
+          },
+          selectionBehavior: 'at-most-one',
+          suggestions: [
+            {
+              uuid: uuidv4(),
+              label: 'Suggested Action Set #3',
+              actions: [
+                {
+                  type: 'create',
+                  description: 'Suggested action of type `create`',
+                  resource: {
+                    resourceType: 'Binary',
+                    contentType: 'image/jpeg',
+                    content: '',
+                    data: ''
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }))
   }
 
   // 404 -----------------------------------------------------------------------

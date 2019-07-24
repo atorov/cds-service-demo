@@ -3,6 +3,7 @@
         "atorov",
         "eqeqeq",
         "fhir",
-        "prefetch"
+        "prefetch",
+        "uuidv"
     ]
 }
