@@ -74,7 +74,7 @@ const server = http.createServer((req, res) => {
         {
           id: 'suggestion-card',
           hook: 'patient-view',
-          title: 'Info card on patient view',
+          title: 'Suggestion card on patient view',
           description: 'An example of a CDS Service that returns a suggestion card'
         }
       ]
