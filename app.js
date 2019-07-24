@@ -240,7 +240,7 @@ const server = http.createServer((req, res) => {
           suggestions: [
             {
               uuid: uuidv4(),
-              label: 'Suggested Action Set #3',
+              label: 'Create New Binary Resource',
               actions: [
                 {
                   type: 'create',
