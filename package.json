@@ -13,7 +13,7 @@
     "hook",
     "demo"
   ],
-  "author": "",
+  "author": "atorov",
   "license": "MIT",
   "repository": "https://github.com/atorov/cds-service-demo.git",
   "devDependencies": {

@@ -84,6 +84,18 @@ const server = http.createServer((req, res) => {
           description: 'An example of a CDS Service that returns a suggestion card'
         },
         {
+          id: 'suggestion-card-absolute-link',
+          hook: 'patient-view',
+          title: 'Suggestion card on patient view with an `absolute` link',
+          description: 'An example of a CDS Service that returns a suggestion card containing a link to absolute URL'
+        },
+        {
+          id: 'suggestion-card-smart-link',
+          hook: 'patient-view',
+          title: 'Suggestion card on patient view with a `SMART` link',
+          description: 'An example of a CDS Service that returns a suggestion card containing a link to SMART app launch URL'
+        },
+        {
           id: 'warning-card',
           hook: 'patient-view',
           title: 'Warning card on patient view',
@@ -93,6 +105,7 @@ const server = http.createServer((req, res) => {
     }))
   }
 
+  // TODO:
   // OPTIONS, GET /cds-services/card-age-fhir-request --------------------------
   if (url == '/cds-services/card-age-fhir-request' && ['OPTIONS', 'POST'].includes(method.toUpperCase())) {
     return processPost(req, () => {
@@ -206,7 +219,7 @@ const server = http.createServer((req, res) => {
     })
   }
 
-  // OPTIONS, GET /cds-services/critical-card --------------------------------------
+  // OPTIONS, GET /cds-services/critical-card ----------------------------------
   if (url === '/cds-services/critical-card' && ['OPTIONS', 'POST'].includes(method)) {
     res.setHeader('Content-Type', 'application/json')
     res.setHeader('Access-Control-Allow-Credentials', 'true')
@@ -254,7 +267,7 @@ const server = http.createServer((req, res) => {
     }))
   }
 
-  // OPTIONS, GET /cds-services/suggestion-card --------------------------------------
+  // OPTIONS, GET /cds-services/suggestion-card --------------------------------
   if (url === '/cds-services/suggestion-card' && ['OPTIONS', 'POST'].includes(method)) {
     res.setHeader('Content-Type', 'application/json')
     res.setHeader('Access-Control-Allow-Credentials', 'true')
@@ -297,7 +310,70 @@ const server = http.createServer((req, res) => {
     }))
   }
 
-  // OPTIONS, GET /cds-services/warning-card --------------------------------------
+  // OPTIONS, GET /cds-services/suggestion-card-absolute-link ------------------
+  if (url === '/cds-services/suggestion-card-absolute-link' && ['OPTIONS', 'POST'].includes(method)) {
+    res.setHeader('Content-Type', 'application/json')
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.writeHead(200)
+
+    return res.end(JSON.stringify({
+      cards: [
+        {
+          summary: 'Suggestion card with an `absolute` link',
+          indicator: 'info',
+          detail: '### Details\n\nThis is a simple suggestion card with a link to absolute URL',
+          source: {
+            label: 'CDS Service Demo',
+            url: 'https://example.com/source'
+          },
+          links: [
+            {
+              label: 'Suggested Link',
+              url: 'https://example.com/suggested-link',
+              type: 'absolute'
+            }
+          ]
+        }
+      ]
+    }))
+  }
+
+  // TODO:
+  // OPTIONS, GET /cds-services/suggestion-card-smart-link ------------------
+  if (url === '/cds-services/suggestion-card-smart-link' && ['OPTIONS', 'POST'].includes(method)) {
+    res.setHeader('Content-Type', 'application/json')
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.writeHead(200)
+
+    return res.end(JSON.stringify({
+      cards: [
+        // {
+        //   summary: 'Suggestion card with a `SMART` link',
+        //   indicator: 'info',
+        //   detail: '### Details\n\nThis is a simple suggestion card with a link to SMART app launch URL',
+        //   source: {
+        //     label: 'CDS Service Demo',
+        //     url: 'https://example.com/source'
+        //   },
+        //   links: [
+        //     {
+        //       label: 'Suggested Link',
+        //       url: '...',
+        //       type: 'smart'
+        //     }
+        //   ]
+        // }
+      ]
+    }))
+  }
+
+  // OPTIONS, GET /cds-services/warning-card -----------------------------------
   if (url === '/cds-services/warning-card' && ['OPTIONS', 'POST'].includes(method)) {
     res.setHeader('Content-Type', 'application/json')
     res.setHeader('Access-Control-Allow-Credentials', 'true')
