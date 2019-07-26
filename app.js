@@ -93,12 +93,11 @@ const server = http.createServer((req, res) => {
           title: 'Suggestion card on patient view',
           description: 'An example of a CDS Service that returns a suggestion card'
         },
-        // TODO:
         {
           id: 'suggestion-card-absolute-link',
           hook: 'patient-view',
           title: 'Suggestion card on patient view with an `absolute` link',
-          description: 'An example of a CDS Service that returns a suggestion card containing a link to absolute URL'
+          description: 'An example of a CDS Service that returns a suggestion card containing a link to an absolute URL'
         },
         // TODO:
         {
@@ -312,14 +311,9 @@ const server = http.createServer((req, res) => {
     }))
   }
 
-  // TODO:
   // OPTIONS, GET /cds-services/suggestion-card-absolute-link ------------------
   if (url === '/cds-services/suggestion-card-absolute-link' && ['OPTIONS', 'POST'].includes(method)) {
-    res.setHeader('Content-Type', 'application/json')
-    res.setHeader('Access-Control-Allow-Credentials', 'true')
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
-    res.setHeader('Access-Control-Allow-Origin', '*')
+    setServiceCommonHeaders(res)
     res.writeHead(200)
 
     return res.end(JSON.stringify({
@@ -327,7 +321,7 @@ const server = http.createServer((req, res) => {
         {
           summary: 'Suggestion card with an `absolute` link',
           indicator: 'info',
-          detail: '### Details\n\nThis is a simple suggestion card with a link to `absolute` URL',
+          detail: '### Details\n\nThis is a simple suggestion card with a link to an `absolute` URL\n\n',
           source: {
             label: 'CDS Service Demo',
             url: 'https://example.com/source'
