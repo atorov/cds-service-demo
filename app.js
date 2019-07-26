@@ -26,6 +26,14 @@ function processPost(req, cb) {
   })
 }
 
+function setServiceCommonHeaders(res) {
+  res.setHeader('Content-Type', 'application/json')
+  res.setHeader('Access-Control-Allow-Credentials', 'true')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
+  res.setHeader('Access-Control-Allow-Origin', '*')
+}
+
 const server = http.createServer((req, res) => {
   const url = req.url
   const method = req.method
@@ -253,14 +261,9 @@ const server = http.createServer((req, res) => {
     }))
   }
 
-  // TODO:
   // OPTIONS, GET /cds-services/info-card --------------------------------------
   if (url === '/cds-services/info-card' && ['OPTIONS', 'POST'].includes(method)) {
-    res.setHeader('Content-Type', 'application/json')
-    res.setHeader('Access-Control-Allow-Credentials', 'true')
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
-    res.setHeader('Access-Control-Allow-Origin', '*')
+    setServiceCommonHeaders(res)
     res.writeHead(200)
 
     return res.end(JSON.stringify({
@@ -386,14 +389,9 @@ const server = http.createServer((req, res) => {
     }))
   }
 
-  // TODO:
   // OPTIONS, GET /cds-services/warning-card -----------------------------------
   if (url === '/cds-services/warning-card' && ['OPTIONS', 'POST'].includes(method)) {
-    res.setHeader('Content-Type', 'application/json')
-    res.setHeader('Access-Control-Allow-Credentials', 'true')
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
-    res.setHeader('Access-Control-Allow-Origin', '*')
+    setServiceCommonHeaders(res)
     res.writeHead(200)
 
     return res.end(JSON.stringify({
