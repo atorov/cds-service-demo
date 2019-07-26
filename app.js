@@ -43,17 +43,16 @@ const server = http.createServer((req, res) => {
     res.setHeader('Content-Type', 'application/json')
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.writeHead(200)
+
     return res.end(JSON.stringify({ status: 'OK' }))
   }
 
   // OPTIONS, GET /cds-services ------------------------------------------------
   if (url == '/cds-services' && ['OPTIONS', 'GET'].includes(method.toUpperCase())) {
-    res.setHeader('Content-Type', 'application/json')
-    res.setHeader('Access-Control-Allow-Credentials', 'true')
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    setServiceCommonHeaders(res)
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET')
-    res.setHeader('Access-Control-Allow-Origin', '*')
     res.writeHead(200)
+
     return res.end(JSON.stringify({
       services: [
         {
