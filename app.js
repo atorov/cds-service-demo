@@ -99,12 +99,11 @@ const server = http.createServer((req, res) => {
           title: 'Suggestion card on patient view with an `absolute` link',
           description: 'An example of a CDS Service that returns a suggestion card containing a link to an absolute URL'
         },
-        // TODO:
         {
           id: 'suggestion-card-smart-link',
           hook: 'patient-view',
           title: 'Suggestion card on patient view with a `SMART` link',
-          description: 'An example of a CDS Service that returns a suggestion card containing a link to SMART app launch URL'
+          description: 'An example of a CDS Service that returns a suggestion card containing a link to a SMART app launch URL'
         },
         {
           id: 'warning-card',
@@ -338,34 +337,31 @@ const server = http.createServer((req, res) => {
     }))
   }
 
-  // TODO:
   // OPTIONS, GET /cds-services/suggestion-card-smart-link ------------------
   if (url === '/cds-services/suggestion-card-smart-link' && ['OPTIONS', 'POST'].includes(method)) {
-    res.setHeader('Content-Type', 'application/json')
-    res.setHeader('Access-Control-Allow-Credentials', 'true')
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
-    res.setHeader('Access-Control-Allow-Origin', '*')
+    setServiceCommonHeaders(res)
     res.writeHead(200)
 
     return res.end(JSON.stringify({
       cards: [
-        // {
-        //   summary: 'Suggestion card with a `SMART` link',
-        //   indicator: 'info',
-        //   detail: '### Details\n\nThis is a simple suggestion card with a link to SMART app launch URL',
-        //   source: {
-        //     label: 'CDS Service Demo',
-        //     url: 'https://example.com/source'
-        //   },
-        //   links: [
-        //     {
-        //       label: 'Suggested Link',
-        //       url: '...',
-        //       type: 'smart'
-        //     }
-        //   ]
-        // }
+        {
+          summary: 'Suggestion card with a `SMART` link',
+          indicator: 'info',
+          detail: `### Details\n\nThis is a simple suggestion card with a link to a SMART app launch URL\n\n![Image of something](https://picsum.photos/id/476/640/240)\n\n`,
+          source: {
+            label: 'CDS Service Demo',
+            url: 'https://example.com/source',
+            icon: 'https://picsum.photos/id/400/100/100'
+          },
+          links: [
+            {
+              label: 'Suggested App',
+              url: 'https://app.example.com/launch',
+              type: 'smart',
+              appContext: '{"test":1}'
+            }
+          ]
+        }
       ]
     }))
   }
