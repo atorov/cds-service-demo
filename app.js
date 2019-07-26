@@ -56,13 +56,11 @@ const server = http.createServer((req, res) => {
     res.writeHead(200)
     return res.end(JSON.stringify({
       services: [
-        // TODO:
         {
           id: 'card-age-fhir-request',
           hook: 'patient-view',
           title: 'Card on patient view with patient age',
-          // description: 'An example of a CDS Service that returns a card containing the patient age. The card could be of type `info`, `warning` or `critical` and it depends on the patient age. The information about the patient is retrieved by the service itself.'
-          description: 'An example of a CDS Service that returns a card containing the patient age'
+          description: 'An example of a CDS Service that returns a card containing the patient age. The card could be of type `info`, `warning` or `critical` and it depends on the patient age. The information about the patient is retrieved by the service itself.'
         },
         // TODO:
         {
@@ -115,31 +113,24 @@ const server = http.createServer((req, res) => {
     }))
   }
 
-  // TODO:
   // OPTIONS, GET /cds-services/card-age-fhir-request --------------------------
   if (url == '/cds-services/card-age-fhir-request' && ['OPTIONS', 'POST'].includes(method.toUpperCase())) {
     return processPost(req, () => {
-      res.setHeader('Content-Type', 'application/json')
-      res.setHeader('Access-Control-Allow-Credentials', 'true')
-      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-      res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
-      res.setHeader('Access-Control-Allow-Origin', '*')
+      setServiceCommonHeaders(res)
       res.writeHead(200)
 
       const hook = req.post && req.post.hook
       // const birthDate = req.post && req.post.prefetch && req.post.prefetch.patient && req.post.prefetch.patient.birthDate
       const cards = []
       if (hook === 'patient-view') {
-        console.log('TODO: /cds-services/card-age-fhir-request')
-
         // const age = birthDate && moment(birthDate).isValid() ? moment().diff(birthDate, 'years') : null
 
-        // let detail = `### Details\n\nInvalid date of birth \n\n`
+        const detail = 'TODO:' // `[IN PROGRESS] ### Details\n\nInvalid date of birth \n\n`
         // if (age !== null && age >= 0) {
         //   detail = `Patient age: ${age} ${age > 1 ? 'years' : 'year'}\n\n`
         // }
 
-        // let indicator = 'info'
+        const indicator = 'info'
         // if (age !== null && (age < 10 || age > 80)) {
         //   indicator = 'warning'
         // } else if (age === null || age < 0) {
@@ -158,15 +149,15 @@ const server = http.createServer((req, res) => {
         //     break
         // }
 
-        // cards.push({
-        //   summary: 'Patient age check',
-        //   indicator,
-        //   detail,
-        //   source: {
-        //     label: 'CDS Service Demo',
-        //     url: 'https://example.com/source'
-        //   }
-        // })
+        cards.push({
+          summary: 'Patient age check',
+          indicator,
+          detail,
+          source: {
+            label: 'CDS Service Demo',
+            url: 'https://example.com/source'
+          }
+        })
       }
 
       return res.end(JSON.stringify({ cards }))
