@@ -62,13 +62,11 @@ const server = http.createServer((req, res) => {
           title: 'Card on patient view with patient age',
           description: 'An example of a CDS Service that returns a card containing the patient age. The card could be of type `info`, `warning` or `critical` and it depends on the patient age. The information about the patient is retrieved by the service itself.'
         },
-        // TODO:
         {
           id: 'card-age-prefetch',
           hook: 'patient-view',
           title: 'Card on patient view with patient age',
-          // description: 'An example of a CDS Service that returns a card containing the patient age. The card could be of type `info`, `warning` or `critical` and it depends on the patient age. The information about the patient is provided by the CDS Client in `prefetch` property.',
-          description: 'An example of a CDS Service that returns a card containing the patient age',
+          description: 'An example of a CDS Service that returns a card containing the patient age. The card could be of type `info`, `warning` or `critical` and it depends on the patient age. The information about the patient is provided by the CDS Client in `prefetch` property.',
           prefetch: {
             patient: 'Patient/{{context.patientId}}'
           }
@@ -164,15 +162,10 @@ const server = http.createServer((req, res) => {
     })
   }
 
-  // TODO:
   // OPTIONS, GET /cds-services/card-age-prefetch ------------------------------
   if (url == '/cds-services/card-age-prefetch' && ['OPTIONS', 'POST'].includes(method.toUpperCase())) {
     return processPost(req, () => {
-      res.setHeader('Content-Type', 'application/json')
-      res.setHeader('Access-Control-Allow-Credentials', 'true')
-      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-      res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
-      res.setHeader('Access-Control-Allow-Origin', '*')
+      setServiceCommonHeaders(res)
       res.writeHead(200)
 
       const hook = req.post && req.post.hook
