@@ -236,14 +236,9 @@ const server = http.createServer((req, res) => {
     })
   }
 
-  // TODO:
   // OPTIONS, GET /cds-services/critical-card ----------------------------------
   if (url === '/cds-services/critical-card' && ['OPTIONS', 'POST'].includes(method)) {
-    res.setHeader('Content-Type', 'application/json')
-    res.setHeader('Access-Control-Allow-Credentials', 'true')
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
-    res.setHeader('Access-Control-Allow-Origin', '*')
+    setServiceCommonHeaders(res)
     res.writeHead(200)
 
     return res.end(JSON.stringify({
