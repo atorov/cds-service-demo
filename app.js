@@ -91,14 +91,14 @@ const server = http.createServer((req, res) => {
         {
           id: 'suggestion-card-absolute-link',
           hook: 'patient-view',
-          title: 'Suggestion card on patient view with an `absolute` link',
+          title: 'Suggestion card on patient view with an absolute link',
           description: 'An example of a CDS Service that returns a suggestion card containing a link to an absolute URL'
         },
         {
           id: 'suggestion-card-smart-link',
           hook: 'patient-view',
-          title: 'Suggestion card on patient view with a `SMART` link',
-          description: 'An example of a CDS Service that returns a suggestion card containing a link to a SMART app launch URL'
+          title: 'Suggestion card on patient view with a SMART app link',
+          description: 'An example of a CDS Service that returns a suggestion card containing a SMART app link'
         },
         {
           id: 'warning-card',
@@ -301,9 +301,9 @@ const server = http.createServer((req, res) => {
     return res.end(JSON.stringify({
       cards: [
         {
-          summary: 'Suggestion card with an `absolute` link',
+          summary: 'Suggestion card with an absolute link',
           indicator: 'info',
-          detail: '### Details\n\nThis is a simple suggestion card with a link to an `absolute` URL\n\n',
+          detail: '### Details\n\nThis is a simple suggestion card with a link to an absolute URL\n\n',
           source: {
             label: 'CDS Service Demo',
             url: 'https://example.com/source'
@@ -328,9 +328,9 @@ const server = http.createServer((req, res) => {
     return res.end(JSON.stringify({
       cards: [
         {
-          summary: 'Suggestion card with a `SMART` link',
+          summary: 'Suggestion card with a SMART app link',
           indicator: 'info',
-          detail: `### Details\n\nThis is a simple suggestion card with a link to a SMART app launch URL\n\n![Image of something](https://picsum.photos/id/476/640/240)\n\n`,
+          detail: `### Details\n\nThis is a simple suggestion card with a SMART app link\n\n![Image of something](https://picsum.photos/id/476/640/240)\n\n`,
           source: {
             label: 'CDS Service Demo',
             url: 'https://example.com/source',
