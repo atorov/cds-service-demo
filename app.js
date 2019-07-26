@@ -75,21 +75,18 @@ const server = http.createServer((req, res) => {
             patient: 'Patient/{{context.patientId}}'
           }
         },
-        // TODO:
         {
           id: 'critical-card',
           hook: 'patient-view',
           title: 'Critical card on patient view',
           description: 'An example of a CDS Service that returns a critical card'
         },
-        // TODO:
         {
           id: 'info-card',
           hook: 'patient-view',
           title: 'Info card on patient view',
           description: 'An example of a CDS Service that returns an info card'
         },
-        // TODO:
         {
           id: 'suggestion-card',
           hook: 'patient-view',
@@ -110,7 +107,6 @@ const server = http.createServer((req, res) => {
           title: 'Suggestion card on patient view with a `SMART` link',
           description: 'An example of a CDS Service that returns a suggestion card containing a link to SMART app launch URL'
         },
-        // TODO:
         {
           id: 'warning-card',
           hook: 'patient-view',
@@ -246,7 +242,7 @@ const server = http.createServer((req, res) => {
         {
           summary: 'Critical card on patient view',
           indicator: 'critical',
-          detail: '### Details\n\nThis is a simple critical card',
+          detail: '### Details\n\nThis is a simple critical card\n\n',
           source: {
             label: 'CDS Service Demo',
             url: 'https://example.com/source'
@@ -266,7 +262,7 @@ const server = http.createServer((req, res) => {
         {
           summary: 'Info card on patient view',
           indicator: 'info',
-          detail: '### Details\n\nThis is a simple info card',
+          detail: '### Details\n\nThis is a simple info card\n\n',
           source: {
             label: 'CDS Service Demo',
             url: 'https://example.com/source'
@@ -276,25 +272,21 @@ const server = http.createServer((req, res) => {
     }))
   }
 
-  // TODO:
   // OPTIONS, GET /cds-services/suggestion-card --------------------------------
   if (url === '/cds-services/suggestion-card' && ['OPTIONS', 'POST'].includes(method)) {
-    res.setHeader('Content-Type', 'application/json')
-    res.setHeader('Access-Control-Allow-Credentials', 'true')
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST')
-    res.setHeader('Access-Control-Allow-Origin', '*')
+    setServiceCommonHeaders(res)
     res.writeHead(200)
 
     return res.end(JSON.stringify({
       cards: [
         {
           summary: 'Suggestion card on patient view',
-          indicator: 'info',
-          detail: '### Details\n\nThis is a simple suggestion card',
+          indicator: 'warning',
+          detail: `### Details\n\nThis is a simple suggestion card\n\n![Image of something](https://picsum.photos/id/476/640/240)\n\n`,
           source: {
             label: 'CDS Service Demo',
-            url: 'https://example.com/source'
+            url: 'https://example.com/source',
+            icon: 'https://picsum.photos/id/400/100/100'
           },
           selectionBehavior: 'at-most-one',
           suggestions: [
@@ -394,7 +386,7 @@ const server = http.createServer((req, res) => {
         {
           summary: 'Warning card on patient view',
           indicator: 'warning',
-          detail: '### Details\n\nThis is a simple warning card',
+          detail: '### Details\n\nThis is a simple warning card\n\n',
           source: {
             label: 'CDS Service Demo',
             url: 'https://example.com/source'
